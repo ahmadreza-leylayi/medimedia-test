@@ -54,8 +54,7 @@ export const SearchPanel: React.FC = () => {
     <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-5 md:p-6 overflow-hidden">
       <div className="mb-3 sm:mb-4 relative" ref={searchRef}>
         <div 
-          className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 md:px-4 py-2 sm:py-3 rounded-xl overflow-hidden"
-          style={{ backgroundColor: '#E2E2E2' }}
+          className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 md:px-4 py-2 sm:py-3 rounded-xl overflow-hidden bg-[#E2E2E2]"
         >
           {/* Search Icon */}
           <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">

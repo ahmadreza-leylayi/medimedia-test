@@ -18,7 +18,7 @@ export const StatisticsChartPanel: React.FC<StatisticsChartPanelProps> = ({
 
   return (
     <div>
-      <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-5 md:p-6 flex flex-col" style={{ height: 'fit-content' }}>
+      <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-5 md:p-6 flex flex-col h-fit">
         {/* Header with title */}
         <div className="mb-3 sm:mb-4">
           <h3 className="text-sm sm:text-base font-bold text-gray-800 mb-3 sm:mb-4">
@@ -28,26 +28,26 @@ export const StatisticsChartPanel: React.FC<StatisticsChartPanelProps> = ({
           {/* Legend with colored dots */}
           <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs text-gray-600 mb-3 sm:mb-4">
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#9333EA' }}></div>
+              <div className="w-3 h-3 rounded-full bg-purple-600"></div>
               <span>تامین اجتماعی</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#10B981' }}></div>
+              <div className="w-3 h-3 rounded-full bg-green-500"></div>
               <span>پزشک تامین اجتماعی</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#F97316' }}></div>
+              <div className="w-3 h-3 rounded-full bg-orange-500"></div>
               <span>پزشک سلامت</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#3B82F6' }}></div>
+              <div className="w-3 h-3 rounded-full bg-blue-500"></div>
               <span>سلامت</span>
             </div>
           </div>
         </div>
         
         {/* Period selection buttons - Tab style */}
-        <div className="flex items-center mb-3 sm:mb-4 rounded-lg overflow-hidden" style={{ backgroundColor: '#ECECEC' }}>
+        <div className="flex items-center mb-3 sm:mb-4 rounded-lg overflow-hidden bg-[#ECECEC]">
           {[
             { key: 'year', label: 'سال' },
             { key: 'month', label: 'ماه' },
@@ -60,11 +60,8 @@ export const StatisticsChartPanel: React.FC<StatisticsChartPanelProps> = ({
               className={`flex-1 px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 text-xs sm:text-sm transition-colors ${
                 activePeriod === period.key
                   ? 'bg-white text-gray-800 font-bold rounded-2xl my-1 mx-1'
-                  : 'text-gray-600 hover:bg-gray-200'
+                  : 'text-gray-600 hover:bg-gray-200 bg-transparent'
               }`}
-              style={{ 
-                backgroundColor: activePeriod === period.key ? 'white' : 'transparent'
-              }}
             >
               {period.label}
             </button>

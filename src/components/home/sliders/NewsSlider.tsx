@@ -106,8 +106,7 @@ export default function NewsSlider() {
         {/* Media Logos Carousel */}
         <div
           id="news-slider-container"
-          className="flex gap-[20px] overflow-x-auto scrollbar-hide pb-2 scroll-smooth"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          className="flex gap-[20px] overflow-x-auto scrollbar-hide pb-2 scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none]"
         >
           {mediaOutlets.map((item) => (
             <div

@@ -201,7 +201,7 @@ export function NotificationsDropdown() {
                     >
                       <div className="flex items-start gap-3">
                         <div
-                          className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${
+                          className={`w-2 h-2 rounded-full mt-2 shrink-0 ${
                             !message.read ? 'bg-blue-600' : 'bg-transparent'
                           }`}
                         />
@@ -211,7 +211,7 @@ export function NotificationsDropdown() {
                               {message.title}
                             </h4>
                             <span
-                              className={`text-xs px-2 py-0.5 rounded-full flex-shrink-0 ${getTypeColor(
+                              className={`text-xs px-2 py-0.5 rounded-full shrink-0 ${getTypeColor(
                                 message.type
                               )}`}
                             >

@@ -115,18 +115,12 @@ export default function NewsSlider() {
                 {/* Blogs Carousel */}
                 <div
                     id="blogs-slider-container"
-                    className="flex gap-[14px] overflow-x-auto scrollbar-hide pb-2 scroll-smooth"
-                    style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                    className="flex gap-[14px] overflow-x-auto scrollbar-hide pb-2 scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none]"
                 >
                     {blogs.map((item) => (
                         <div
                             key={item.id}
-                            className="bg-[#FCFCFC] rounded-[20px] border border-gray-200 shrink-0 flex flex-col hover:shadow-md transition-shadow cursor-pointer"
-                            style={{
-                                width: '320px',
-                                padding: '24px',
-                                gap: '14px',
-                            }}
+                            className="bg-[#FCFCFC] rounded-[20px] border border-gray-200 shrink-0 flex flex-col hover:shadow-md transition-shadow cursor-pointer w-[320px] p-6 gap-[14px]"
                         >
                             <Image
                                 src={item.image}

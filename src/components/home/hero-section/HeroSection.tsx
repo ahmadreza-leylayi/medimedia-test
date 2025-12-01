@@ -97,7 +97,7 @@ export default function HeroSection() {
             ))}
           </div>
           {/* CTA Button */}
-          <Button className="w-fit bg-gradient-to-r from-[#19ADBD] to-[#197BBD] text-white py-3 text-md font-thin rounded-3xl h-12 shadow-lg cursor-pointer px-4">
+          <Button className="w-fit bg-linear-to-r from-[#19ADBD] to-[#197BBD] text-white py-3 text-md font-thin rounded-3xl h-12 shadow-lg cursor-pointer px-4">
             شروع کار از اینجا
           </Button>
         </div>

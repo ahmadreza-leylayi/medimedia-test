@@ -162,6 +162,19 @@ export const DashboardContainer: React.FC = () => {
 
   const handleHidePanel = (id: string) => {
     setHiddenPanels([...hiddenPanels, id]);
+    // حذف از panelOrder تا دوباره در sidebar ظاهر شود
+    const newOrder = panelOrder.filter(panelId => panelId !== id);
+    setPanelOrder(newOrder);
+    localStorage.setItem('dashboard-panel-order', JSON.stringify(newOrder));
+  };
+
+  const handleAddWidget = (widgetId: string) => {
+    // اضافه کردن ویجت جدید به لیست panelOrder
+    if (!panelOrder.includes(widgetId)) {
+      const newOrder = [...panelOrder, widgetId];
+      setPanelOrder(newOrder);
+      localStorage.setItem('dashboard-panel-order', JSON.stringify(newOrder));
+    }
   };
 
   const handleAddEmployee = (data: any) => {
@@ -262,18 +275,6 @@ export const DashboardContainer: React.FC = () => {
                   <span className="font-bold sm:hidden">تایید</span>
                 </button>
                 <button
-                  onClick={() => setShowWidgetSidebar(true)}
-                  className="px-2 sm:px-4 py-2 bg-white hover:bg-gray-50 rounded-lg transition-colors flex items-center gap-1 sm:gap-2 border border-gray-300 text-xs sm:text-sm"
-                  title="افزودن آیتم"
-                >
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                  </svg>
-                  <span className="text-gray-700 hidden sm:inline">
-                    افزودن آیتم
-                  </span>
-                </button>
-                <button
                   onClick={handleCancelCustomization}
                   className="px-2 sm:px-4 py-2 bg-white hover:bg-gray-50 rounded-lg transition-colors text-gray-700 border border-gray-300 text-xs sm:text-sm"
                 >
@@ -329,9 +330,15 @@ export const DashboardContainer: React.FC = () => {
         employee={selectedEmployee}
       />
 
-      <WidgetSidebar isOpen={showWidgetSidebar} onClose={() => setShowWidgetSidebar(false)} />
+      <WidgetSidebar 
+        isOpen={showWidgetSidebar} 
+        onClose={() => setShowWidgetSidebar(false)}
+        existingWidgets={panelOrder}
+        onAddWidget={handleAddWidget}
+      />
 
       <CustomizationPanel isOpen={showCustomizationPanel} onClose={() => setShowCustomizationPanel(false)} />
+
     </div>
   );
 };

@@ -13,10 +13,7 @@ export function HeroColor({ className }: HeroColorProps) {
     >
       {/* First SVG - Base layer (solid teal) - moves left */}
       <div 
-        className="absolute top-[-80px] md:top-[-60px] lg:-top-3 left-0 right-0 w-full h-full wave-animation-left overflow-hidden"
-        style={{
-          transformOrigin: 'center'
-        }}
+        className="absolute top-[-80px] md:top-[-60px] lg:-top-3 left-0 right-0 w-full h-full wave-animation-left overflow-hidden origin-center"
       >
         <svg
           width="100%"
@@ -36,10 +33,7 @@ export function HeroColor({ className }: HeroColorProps) {
 
       {/* Second SVG - Middle layer with opacity - moves right */}
       <div 
-        className="absolute top-[-82px] md:top-[-62px] lg:top-0 left-0 right-0 w-full h-full -mt-2 lg:-mt-2 wave-animation-right overflow-hidden"
-        style={{
-          transformOrigin: 'center'
-        }}
+        className="absolute top-[-82px] md:top-[-62px] lg:top-0 left-0 right-0 w-full h-full -mt-2 lg:-mt-2 wave-animation-right overflow-hidden origin-center"
       >
         <svg
           width="100%"
@@ -60,10 +54,7 @@ export function HeroColor({ className }: HeroColorProps) {
 
       {/* Third SVG - Top layer with opacity - moves left with delay */}
       <div 
-        className="absolute top-[-75px] md:top-[-55px] lg:top-0 left-0 right-0 w-full h-full mt-5 lg:mt-5 wave-animation-left-delayed overflow-hidden"
-        style={{
-          transformOrigin: 'center'
-        }}
+        className="absolute top-[-75px] md:top-[-55px] lg:top-0 left-0 right-0 w-full h-full mt-5 lg:mt-5 wave-animation-left-delayed overflow-hidden origin-center"
       >
         <svg
           width="100%"

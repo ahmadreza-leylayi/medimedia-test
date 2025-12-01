@@ -16,11 +16,10 @@ export const AppointmentActionMenu: React.FC<AppointmentActionMenuProps> = ({
   return (
     <div
       data-appointment-menu
-      className="fixed bg-white rounded-xl shadow-lg border border-gray-200 z-50 overflow-hidden"
+      className="fixed bg-white rounded-xl shadow-lg border border-gray-200 z-50 overflow-hidden pointer-events-auto"
       onClick={(e) => e.stopPropagation()}
       onMouseDown={(e) => e.stopPropagation()}
       style={{
-        pointerEvents: 'auto',
         top: `${position.top}px`,
         left: `${position.left}px`,
         width: `${position.width}px`,

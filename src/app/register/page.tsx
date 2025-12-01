@@ -9,6 +9,7 @@ import { addMessage } from '@/mocks/messages';
 import type { AuthenticatedUser } from '@/types/auth';
 import Link from 'next/link';
 import Image from 'next/image';
+import { EyeIcon } from '@/components/ui/EyeIcon';
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -24,6 +25,8 @@ export default function RegisterPage() {
   });
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -215,17 +218,22 @@ export default function RegisterPage() {
               <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
                 رمز عبور
               </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-                minLength={6}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition-all"
-                dir="ltr"
-              />
+              <div className="relative">
+                <input
+                  id="password"
+                  name="password"
+                  type={showPassword ? 'text' : 'password'}
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                  minLength={6}
+                  className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition-all"
+                  dir="ltr"
+                />
+                <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                  <EyeIcon isOpen={showPassword} onClick={() => setShowPassword(!showPassword)} />
+                </div>
+              </div>
             </div>
 
             {/* Confirm Password */}
@@ -233,17 +241,22 @@ export default function RegisterPage() {
               <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-2">
                 تکرار رمز عبور
               </label>
-              <input
-                id="confirmPassword"
-                name="confirmPassword"
-                type="password"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                required
-                minLength={6}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition-all"
-                dir="ltr"
-              />
+              <div className="relative">
+                <input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  required
+                  minLength={6}
+                  className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition-all"
+                  dir="ltr"
+                />
+                <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                  <EyeIcon isOpen={showConfirmPassword} onClick={() => setShowConfirmPassword(!showConfirmPassword)} />
+                </div>
+              </div>
             </div>
 
             {/* Error Message */}

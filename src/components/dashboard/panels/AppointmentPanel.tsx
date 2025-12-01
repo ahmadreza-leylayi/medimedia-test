@@ -134,12 +134,11 @@ export const AppointmentPanel: React.FC<AppointmentPanelProps> = ({
         <button 
           onClick={onAddAppointmentClick}
           disabled={isDateInPast}
-          className={`rounded-2xl shadow-sm p-4 text-center transition-opacity ${
+          className={`rounded-2xl shadow-sm p-4 text-center transition-opacity bg-[#E5E5E5] ${
             isDateInPast 
               ? 'opacity-50 cursor-not-allowed' 
               : 'hover:opacity-90 cursor-pointer'
           }`}
-          style={{ backgroundColor: '#E5E5E5' }}
           title={isDateInPast ? 'نمی‌توان برای روزهای گذشته نوبت ثبت کرد' : ''}
         >
           <span className={`text-base font-bold ${isDateInPast ? 'text-gray-400' : 'text-gray-800'}`}>
@@ -148,8 +147,8 @@ export const AppointmentPanel: React.FC<AppointmentPanelProps> = ({
         </button>
 
         {/* Appointments List */}
-        <div className="flex flex-col" style={{ minHeight: '300px', maxHeight: '500px' }}>
-          <div className="space-y-3 overflow-y-auto pr-2" style={{ maxHeight: '450px' }}>
+        <div className="flex flex-col min-h-[300px] max-h-[500px]">
+          <div className="space-y-3 overflow-y-auto pr-2 max-h-[450px]">
             {appointmentsForDate.length === 0 ? (
               <div className="text-center py-8 text-gray-400">
                 نوبتی برای این تاریخ ثبت نشده است
@@ -160,12 +159,12 @@ export const AppointmentPanel: React.FC<AppointmentPanelProps> = ({
                 // 📌 قسمت تغییر رنگ کارت‌های نوبت بر اساس وضعیت
                 // ============================================
                 // رنگ‌ها بر اساس وضعیت: فقط completed سبز، cancelled نارنجی، بقیه سفید
-                const statusColors: Record<string, { dot: string; borderColor: string; time: string; cardBg: string }> = {
-                  active: { dot: 'bg-gray-400', borderColor: '#D1D5DB', time: 'text-gray-600', cardBg: '#FFFFFF' },
-                  pending: { dot: 'bg-gray-400', borderColor: '#D1D5DB', time: 'text-gray-600', cardBg: '#FFFFFF' },
-                  inactive: { dot: 'bg-gray-400', borderColor: '#D1D5DB', time: 'text-gray-600', cardBg: '#FFFFFF' },
-                  completed: { dot: 'bg-green-500', borderColor: '#22C55E', time: 'text-green-600', cardBg: '#F0FDF4' },
-                  cancelled: { dot: 'bg-orange-500', borderColor: '#F97316', time: 'text-orange-600', cardBg: '#FFF7ED' },
+                const statusColors: Record<string, { dot: string; borderColor: string; time: string; cardBg: string; hoverBg: string }> = {
+                  active: { dot: 'bg-gray-400', borderColor: 'border-gray-300', time: 'text-gray-600', cardBg: 'bg-white', hoverBg: 'hover:bg-gray-50' },
+                  pending: { dot: 'bg-gray-400', borderColor: 'border-gray-300', time: 'text-gray-600', cardBg: 'bg-white', hoverBg: 'hover:bg-gray-50' },
+                  inactive: { dot: 'bg-gray-400', borderColor: 'border-gray-300', time: 'text-gray-600', cardBg: 'bg-white', hoverBg: 'hover:bg-gray-50' },
+                  completed: { dot: 'bg-green-500', borderColor: 'border-green-500', time: 'text-green-600', cardBg: 'bg-green-50', hoverBg: 'hover:bg-green-100' },
+                  cancelled: { dot: 'bg-orange-500', borderColor: 'border-orange-500', time: 'text-orange-600', cardBg: 'bg-orange-50', hoverBg: 'hover:bg-orange-100' },
                 };
                 const colors = statusColors[appointment.status] || statusColors.inactive;
                 
@@ -190,40 +189,14 @@ export const AppointmentPanel: React.FC<AppointmentPanelProps> = ({
                         e.stopPropagation();
                         onAppointmentClick(appointment.id);
                       }}
-                      className="p-4 rounded-xl flex flex-col items-center 2xl:flex-row 2xl:items-center gap-3 2xl:gap-3 cursor-pointer transition-all duration-300"
-                      style={{ 
-                        backgroundColor: colors.cardBg,
-                        borderRight: `4px solid ${colors.borderColor}`,
-                        transition: 'background-color 0.3s ease-in-out, border-color 0.3s ease-in-out'
-                      }}
-                      onMouseEnter={(e) => {
-                        // Hover effect: slightly darken the background
-                        const currentBg = colors.cardBg;
-                        if (currentBg === '#FFFFFF') {
-                          e.currentTarget.style.backgroundColor = '#F9FAFB';
-                        } else if (currentBg === '#F0FDF4') {
-                          e.currentTarget.style.backgroundColor = '#DCFCE7';
-                        } else if (currentBg === '#FFF7ED') {
-                          e.currentTarget.style.backgroundColor = '#FFEDD5';
-                        }
-                      }}
-                      onMouseLeave={(e) => {
-                        // Restore original color
-                        e.currentTarget.style.backgroundColor = colors.cardBg;
-                      }}
+                      className={`p-4 rounded-xl flex flex-col items-center 2xl:flex-row 2xl:items-center gap-3 2xl:gap-3 cursor-pointer transition-all duration-300 ${colors.cardBg} ${colors.hoverBg} border-r-4 ${colors.borderColor}`}
                     >
                       {/* بخش بالا: زمان و آیکون */}
                       <div className="flex items-center gap-3">
                         <div className="flex items-center gap-2">
                           <div className={`w-2 h-2 rounded-full ${colors.dot}`}></div>
                           <span 
-                            className={`text-sm font-bold ${colors.time} px-3 py-1 rounded-lg`} 
-                            style={{ 
-                              backgroundColor: '#F1F1F1',
-                              direction: 'ltr',
-                              textAlign: 'center',
-                              display: 'inline-block'
-                            }}
+                            className={`text-sm font-bold ${colors.time} px-3 py-1 rounded-lg bg-[#F1F1F1] dir-ltr text-center inline-block`}
                           >
                             {appointment.time}
                           </span>
@@ -250,7 +223,7 @@ export const AppointmentPanel: React.FC<AppointmentPanelProps> = ({
                         <p className="text-xs text-gray-500 mb-1">
                           نام بیمار
                         </p>
-                        <p className="text-sm font-bold text-gray-800 break-words" title={appointment.name}>
+                        <p className="text-sm font-bold text-gray-800 wrap-break-word" title={appointment.name}>
                           {appointment.name}
                         </p>
                       </div>

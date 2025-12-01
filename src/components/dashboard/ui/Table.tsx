@@ -45,7 +45,7 @@ export function Table<T extends { id: string }>({
               <th
                 key={column.key}
                 className="p-2 sm:p-3 md:p-4 text-right text-xs sm:text-sm font-bold text-gray-700 whitespace-nowrap"
-                style={{ width: column.width }}
+                style={column.width ? { width: column.width } : undefined}
               >
                 {column.label}
               </th>

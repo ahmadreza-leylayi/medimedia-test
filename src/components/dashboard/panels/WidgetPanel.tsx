@@ -2,39 +2,52 @@
 
 import React, { useState } from 'react';
 import { Sidebar, SidebarItem } from '@/components/dashboard/ui/Sidebar';
+import { availableWidgets, WidgetType } from '@/components/dashboard/ui/AddWidgetModal';
 
 interface WidgetSidebarProps {
   isOpen: boolean;
   onClose: () => void;
+  existingWidgets: string[];
+  onAddWidget: (widgetId: string) => void;
 }
 
-export const WidgetSidebar: React.FC<WidgetSidebarProps> = ({ isOpen, onClose }) => {
-  const widgets = [
-    { id: '1', name: 'لیست ویزیت‌ها', icon: '📋', category: 'medical' },
-    { id: '2', name: 'لیست ویزیت‌ها', icon: '📋', category: 'medical' },
-    { id: '3', name: 'لیست ویزیت‌ها', icon: '📋', category: 'medical' },
-    { id: '4', name: 'لیست ویزیت‌ها', icon: '📋', category: 'medical' },
-    { id: '5', name: 'لیست ویزیت‌ها', icon: '📋', category: 'medical' },
-    { id: '6', name: 'لیست ویزیت‌ها', icon: '📋', category: 'medical' },
-    { id: '7', name: 'لیست ویزیت‌ها', icon: '📋', category: 'medical' },
-    { id: '8', name: 'لیست ویزیت‌ها', icon: '📋', category: 'medical' },
-    { id: '9', name: 'لیست ویزیت‌ها', icon: '📋', category: 'medical' },
-    { id: '10', name: 'لیست ویزیت‌ها', icon: '📋', category: 'medical' },
-  ];
+export const WidgetSidebar: React.FC<WidgetSidebarProps> = ({ 
+  isOpen, 
+  onClose, 
+  existingWidgets,
+  onAddWidget 
+}) => {
+  // فیلتر کردن ویجت‌هایی که در صفحه نیستند (در panelOrder نیستند)
+  const availableWidgetsList = availableWidgets.filter(
+    (widget) => !existingWidgets.includes(widget.id)
+  );
+
+  const handleWidgetClick = (widget: WidgetType) => {
+    // نمایش تایید
+    const confirmed = window.confirm(`آیا می‌خواهید "${widget.name}" را به داشبورد اضافه کنید؟`);
+    if (confirmed) {
+      onAddWidget(widget.id);
+      onClose();
+    }
+  };
 
   return (
-    <Sidebar isOpen={isOpen} onClose={onClose} title="آیتم‌ها">
+    <Sidebar isOpen={isOpen} onClose={onClose} title="افزودن ویجت">
       <div className="space-y-2">
-        {widgets.map((widget) => (
-          <SidebarItem
-            key={widget.id}
-            icon={<span className="text-2xl">{widget.icon}</span>}
-            label={widget.name}
-            onClick={() => {
-              console.log('Add widget:', widget.id);
-            }}
-          />
-        ))}
+        {availableWidgetsList.length === 0 ? (
+          <div className="text-center py-8 text-gray-500">
+            <p>همه ویجت‌ها قبلاً اضافه شده‌اند</p>
+          </div>
+        ) : (
+          availableWidgetsList.map((widget) => (
+            <SidebarItem
+              key={widget.id}
+              icon={<span className="text-2xl">{widget.icon}</span>}
+              label={widget.name}
+              onClick={() => handleWidgetClick(widget)}
+            />
+          ))
+        )}
       </div>
     </Sidebar>
   );

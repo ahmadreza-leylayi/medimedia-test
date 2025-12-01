@@ -250,4 +250,75 @@ body {
       display: none !important;
     }
   }
+
+  /* Scrollbar hide utility */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Eye Icon Animations */
+.eye-lid-top {
+  transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.eye-lid-bottom {
+  transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.eye-closed-top {
+  height: 50%;
+}
+
+.eye-open-top {
+  height: 0%;
+  animation: openEyeTop 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.eye-closed-bottom {
+  height: 50%;
+}
+
+.eye-open-bottom {
+  height: 0%;
+  animation: openEyeBottom 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes openEyeTop {
+  0% {
+    height: 50%;
+    transform: translateY(0);
+  }
+  50% {
+    height: 25%;
+    transform: translateY(-2px);
+  }
+  100% {
+    height: 0%;
+    transform: translateY(0);
+  }
+}
+
+@keyframes openEyeBottom {
+  0% {
+    height: 50%;
+    transform: translateY(0);
+  }
+  50% {
+    height: 25%;
+    transform: translateY(2px);
+  }
+  100% {
+    height: 0%;
+    transform: translateY(0);
+  }
+}
+
+/* Eye Lash Animations */
+.eye-lash-closed {
+  transition: top 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.eye-lash-open {
+  transition: top 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }

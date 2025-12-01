@@ -128,8 +128,7 @@ function SliderTop() {
         {/* Service Cards - Horizontal Scrollable */}
         <div
           ref={scrollContainerRef}
-          className="flex gap-3 sm:gap-[14px] overflow-x-auto scrollbar-hide pb-2 scroll-smooth pl-4 sm:pl-0"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          className="flex gap-3 sm:gap-[14px] overflow-x-auto scrollbar-hide pb-2 scroll-smooth pl-4 sm:pl-0 [scrollbar-width:none] [-ms-overflow-style:none]"
         >
           {services.map((service) => (
             <div

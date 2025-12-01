@@ -99,9 +99,7 @@ export function RequestService() {
                                         : 'bg-[#FCFCFC] text-gray-900 border-gray-200'
                                     }
                 `}
-                                style={{
-                                    padding: '16px 14px 16px 18px',
-                                }}
+                                style={{ padding: '16px 14px 16px 18px' }}
                             >
                                 {/* Icon - Right side */}
                                 <div className={`shrink-0 ml-auto ${isSelected ? 'opacity-100' : 'opacity-40'}`}>

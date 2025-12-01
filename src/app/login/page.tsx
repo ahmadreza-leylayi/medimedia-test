@@ -8,6 +8,7 @@ import { validateLogin } from '@/mocks/users';
 import { addMessage } from '@/mocks/messages';
 import Link from 'next/link';
 import Image from 'next/image';
+import { EyeIcon } from '@/components/ui/EyeIcon';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -16,6 +17,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -104,16 +106,21 @@ export default function LoginPage() {
               <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
                 رمز عبور
               </label>
-              <input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="admin123"
-                required
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition-all"
-                dir="ltr"
-              />
+              <div className="relative">
+                <input
+                  id="password"
+                  type={showPassword ? 'text' : 'password'}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="admin123"
+                  required
+                  className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition-all"
+                  dir="ltr"
+                />
+                <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                  <EyeIcon isOpen={showPassword} onClick={() => setShowPassword(!showPassword)} />
+                </div>
+              </div>
             </div>
 
             {/* Error Message */}

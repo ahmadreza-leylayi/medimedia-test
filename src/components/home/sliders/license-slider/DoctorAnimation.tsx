@@ -20,12 +20,7 @@ export default function DoctorAnimation() {
       
       {/* Grid Background Pattern */}
       <div 
-        className="absolute inset-0 opacity-10"
-        style={{
-          backgroundImage: 'url("/hero-section/grid.png")',
-          backgroundRepeat: 'repeat',
-          backgroundSize: '20px 20px',
-        }}
+        className="absolute inset-0 opacity-10 bg-[url('/hero-section/grid.png')] bg-repeat bg-position-[20px_20px]"
       />
     </div>
   );

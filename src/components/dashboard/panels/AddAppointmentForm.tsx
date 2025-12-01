@@ -68,8 +68,7 @@ export const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
                 }
               }}
               placeholder="۰۴"
-              className="w-20 px-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-sm text-center"
-              style={{ direction: 'ltr' }}
+              className="w-20 px-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-sm text-center dir-ltr"
             />
             <span className="text-2xl font-bold text-gray-600">
               :
@@ -92,8 +91,7 @@ export const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
                 }
               }}
               placeholder="۱۴"
-              className="w-20 px-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-sm text-center"
-              style={{ direction: 'ltr' }}
+              className="w-20 px-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-sm text-center dir-ltr"
             />
           </div>
           <p className="text-xs text-gray-500 mt-1 text-center">

@@ -42,7 +42,7 @@ export const MenuPanel: React.FC = () => {
       </button>
 
       {/* Menu List */}
-      <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-5 md:p-6 pb-0 sm:pb-0 flex flex-col relative" style={{ minHeight: '300px', paddingBottom: '0' }}>
+      <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-5 md:p-6 pb-0 sm:pb-0 flex flex-col relative min-h-[300px]">
         <div className="space-y-2 pb-6">
           {menuItems.map((item, index) => (
             <div key={index} className="w-full">

@@ -66,7 +66,7 @@ export const ChartLegend: React.FC<{ items: LegendItemProps[] }> = ({ items }) =
       {items.map((item, index) => (
         <div key={index} className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className={`w-3 h-3 rounded-full`} style={{ backgroundColor: item.color }} />
+            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }} />
             <span className="text-sm text-gray-600">
               {item.label}
             </span>

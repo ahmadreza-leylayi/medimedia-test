@@ -204,6 +204,11 @@ export const DashboardMainPage: React.FC<DashboardMainPageProps> = ({
             if (panelId === 'search') return 'col-span-1 md:col-span-2 lg:col-span-3';
             if (panelId === 'menu') return 'col-span-1 md:col-span-2 lg:col-span-2';
             if (panelId === 'statistics') return 'col-span-1 md:col-span-6 lg:col-span-4';
+            // ویجت‌های جدید
+            if (panelId === 'patients-list') return 'col-span-1 md:col-span-6 lg:col-span-4';
+            if (panelId === 'reports') return 'col-span-1 md:col-span-6 lg:col-span-4';
+            if (panelId === 'notifications') return 'col-span-1 md:col-span-2 lg:col-span-3';
+            if (panelId === 'calendar') return 'col-span-1 md:col-span-6 lg:col-span-4';
             return 'col-span-1 md:col-span-6 lg:col-span-4';
           };
 
@@ -238,6 +243,30 @@ export const DashboardMainPage: React.FC<DashboardMainPageProps> = ({
                   activePeriod={activePeriod}
                   onPeriodChange={setActivePeriod}
                 />
+              );
+            }
+            // ویجت‌های جدید - نمایش placeholder
+            if (panelId === 'patients-list' || panelId === 'reports' || panelId === 'notifications' || panelId === 'calendar') {
+              return (
+                <div className="bg-white rounded-2xl shadow-lg p-6">
+                  <div className="text-center py-8">
+                    <div className="text-4xl mb-4">
+                      {panelId === 'patients-list' && '👥'}
+                      {panelId === 'reports' && '📈'}
+                      {panelId === 'notifications' && '🔔'}
+                      {panelId === 'calendar' && '🗓️'}
+                    </div>
+                    <h3 className="text-lg font-bold text-gray-800 mb-2">
+                      {panelId === 'patients-list' && 'لیست بیماران'}
+                      {panelId === 'reports' && 'گزارش‌ها'}
+                      {panelId === 'notifications' && 'اعلان‌ها'}
+                      {panelId === 'calendar' && 'تقویم'}
+                    </h3>
+                    <p className="text-sm text-gray-500">
+                      این ویجت به زودی پیاده‌سازی خواهد شد
+                    </p>
+                  </div>
+                </div>
               );
             }
             return null;

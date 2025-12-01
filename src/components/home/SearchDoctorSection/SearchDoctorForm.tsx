@@ -579,7 +579,7 @@ function SearchDoctorForm() {
 
                 <button 
                   onClick={handleSearch}
-                  className="flex text-nowrap items-center justify-center gap-1 md:gap-2 bg-gradient-to-b from-[#E04A3C] to-[#ED6A5E] text-white px-3 md:px-4 lg:px-4  py-2 md:py-3 rounded-3xl font-medium hover:from-[#D03A2C] hover:to-[#DD5A4E] transition-colors w-full md:w-auto md:shrink-0 cursor-pointer"
+                  className="flex text-nowrap items-center justify-center gap-1 md:gap-2 bg-linear-to-b from-[#E04A3C] to-[#ED6A5E] text-white px-3 md:px-4 lg:px-4  py-2 md:py-3 rounded-3xl font-medium hover:from-[#D03A2C] hover:to-[#DD5A4E] transition-colors w-full md:w-auto md:shrink-0 cursor-pointer"
                 >
                   <Image
                     src="/search-doctor-section/icons/search-start.png"
@@ -600,7 +600,7 @@ function SearchDoctorForm() {
       {showFilterResults && filterResults.length > 0 && (
         <div 
           ref={filterResultsRef}
-          className="fixed inset-0 bg-black bg-opacity-50 z-[100] flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
           onClick={(e) => {
             if (e.target === e.currentTarget) {
               setShowFilterResults(false);

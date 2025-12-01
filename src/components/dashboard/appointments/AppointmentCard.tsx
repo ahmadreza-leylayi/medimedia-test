@@ -69,8 +69,7 @@ export const AppointmentCard: React.FC<AppointmentCardProps> = ({
           <div className="flex items-center gap-2">
             <div className={`w-2 h-2 rounded-full ${colors.dot}`}></div>
             <span
-              className={`text-sm font-bold ${colors.time} px-3 py-1 rounded-lg bg-gray-100`}
-              style={{ direction: 'ltr', textAlign: 'center', display: 'inline-block' }}
+              className={`text-sm font-bold ${colors.time} px-3 py-1 rounded-lg bg-gray-100 dir-ltr text-center inline-block`}
             >
               {appointment.time}
             </span>
@@ -97,7 +96,7 @@ export const AppointmentCard: React.FC<AppointmentCardProps> = ({
           <p className="text-xs text-gray-500 mb-1">
             نام بیمار
           </p>
-          <p className="text-sm font-bold text-gray-800 break-words" title={appointment.name}>
+          <p className="text-sm font-bold text-gray-800 wrap-break-word" title={appointment.name}>
             {appointment.name}
           </p>
         </div>
