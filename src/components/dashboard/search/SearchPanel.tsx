@@ -14,6 +14,7 @@ export const SearchPanel: React.FC = () => {
   const [selectedDoctor, setSelectedDoctor] = useState<Employee | null>(null);
   const [showResults, setShowResults] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   // Filter doctors based on search query
   const filteredDoctors = useMemo(() => {
@@ -29,6 +30,19 @@ export const SearchPanel: React.FC = () => {
       })
       .slice(0, 5); // Limit to 5 results
   }, [employees, searchQuery]);
+
+  // Keyboard shortcut (Shift+C)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.shiftKey && e.key === 'C') || (e.shiftKey && e.key === 'c')) {
+        e.preventDefault();
+        inputRef.current?.focus();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -57,6 +71,7 @@ export const SearchPanel: React.FC = () => {
     <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-5 md:p-6 overflow-hidden">
       <div className="mb-3 sm:mb-4 relative" ref={searchRef}>
         <SearchInput
+          ref={inputRef}
           value={searchQuery}
           placeholder={selectedDoctor ? selectedDoctor.name : "نسخه نویس سریع"}
           onChange={(value) => {

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
   setEmployees,
@@ -25,11 +26,33 @@ import { generateMockTasks } from '@/mocks/tasks';
 type DashboardView = 'main' | 'list' | 'add' | 'edit';
 
 export const DashboardContainer: React.FC = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const dispatch = useAppDispatch();
   const { modalOpen, selectedEmployee, selectedEmployees, sidebarOpen, employees, tasks } = useAppSelector(
     (state) => state.dashboard
   );
-  const [currentView, setCurrentView] = useState<DashboardView>('main');
+  
+  // Get view from URL or default to 'main'
+  const viewFromUrl = searchParams.get('view') as DashboardView | null;
+  const isValidView = viewFromUrl && ['main', 'list'].includes(viewFromUrl);
+  const [currentView, setCurrentView] = useState<DashboardView>(isValidView ? viewFromUrl : 'main');
+
+  // Sync URL with currentView when URL changes
+  useEffect(() => {
+    const currentViewFromUrl = searchParams.get('view') as DashboardView | null;
+    if (currentViewFromUrl && ['main', 'list'].includes(currentViewFromUrl) && currentViewFromUrl !== currentView) {
+      setCurrentView(currentViewFromUrl);
+    }
+  }, [searchParams, currentView]);
+
+  // Update URL when view changes
+  const handleViewChange = (view: DashboardView) => {
+    setCurrentView(view);
+    const params = new URLSearchParams();
+    params.set('view', view);
+    router.push(`/dashboard?${params.toString()}`, { scroll: false });
+  };
   const [showWidgetSidebar, setShowWidgetSidebar] = useState(false);
   const [showCustomizationPanel, setShowCustomizationPanel] = useState(false);
   const [isCustomizing, setIsCustomizing] = useState(false);
@@ -177,6 +200,34 @@ export const DashboardContainer: React.FC = () => {
     }
   };
 
+  const handleDropWidget = (e: React.DragEvent, position: number) => {
+    e.preventDefault();
+    const widgetId = e.dataTransfer.getData('widgetId');
+    const source = e.dataTransfer.getData('source');
+    
+    if (widgetId && source === 'sidebar' && !panelOrder.includes(widgetId)) {
+      const newOrder = [...panelOrder];
+      // محدود کردن position به محدوده معتبر
+      const validPosition = Math.min(Math.max(0, position), newOrder.length);
+      newOrder.splice(validPosition, 0, widgetId);
+      setPanelOrder(newOrder);
+      localStorage.setItem('dashboard-panel-order', JSON.stringify(newOrder));
+    }
+  };
+
+  const handleMoveWidget = (widgetId: string, newPosition: number) => {
+    const newOrder = [...panelOrder];
+    const draggedIndex = newOrder.indexOf(widgetId);
+    if (draggedIndex !== -1) {
+      newOrder.splice(draggedIndex, 1);
+      // محدود کردن position به محدوده معتبر
+      const validPosition = Math.min(Math.max(0, newPosition), newOrder.length);
+      newOrder.splice(validPosition, 0, widgetId);
+      setPanelOrder(newOrder);
+      localStorage.setItem('dashboard-panel-order', JSON.stringify(newOrder));
+    }
+  };
+
   const handleAddEmployee = (data: any) => {
     dispatch(addEmployee(data));
     dispatch(closeModal('add'));
@@ -207,7 +258,7 @@ export const DashboardContainer: React.FC = () => {
             </h1>
             <div className="flex gap-2 w-full sm:w-auto">
               <button
-                onClick={() => setCurrentView('main')}
+                onClick={() => handleViewChange('main')}
                 className={`px-3 sm:px-4 py-2 text-sm sm:text-base rounded-lg transition-colors flex-1 sm:flex-none ${
                   currentView === 'main'
                     ? 'bg-cyan-500 text-white font-bold'
@@ -217,7 +268,7 @@ export const DashboardContainer: React.FC = () => {
                 داشبورد
               </button>
               <button
-                onClick={() => setCurrentView('list')}
+                onClick={() => handleViewChange('list')}
                 className={`px-3 sm:px-4 py-2 text-sm sm:text-base rounded-lg transition-colors flex-1 sm:flex-none ${
                   currentView === 'list'
                     ? 'bg-cyan-500 text-white font-bold'
@@ -298,6 +349,8 @@ export const DashboardContainer: React.FC = () => {
             onDragOver={handleDragOver}
             onDragEnd={handleDragEnd}
             onDrop={handleDrop}
+            onDropWidget={handleDropWidget}
+            onMoveWidget={handleMoveWidget}
             onHidePanel={handleHidePanel}
           />
         )}

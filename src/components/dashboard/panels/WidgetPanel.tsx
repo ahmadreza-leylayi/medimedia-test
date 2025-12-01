@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Sidebar, SidebarItem } from '@/components/dashboard/ui/Sidebar';
 import { availableWidgets, WidgetType } from '@/components/dashboard/ui/AddWidgetModal';
+import { ConfirmModal } from '@/components/dashboard/ui/Modal';
 
 interface WidgetSidebarProps {
   isOpen: boolean;
@@ -17,39 +18,77 @@ export const WidgetSidebar: React.FC<WidgetSidebarProps> = ({
   existingWidgets,
   onAddWidget 
 }) => {
+  const [selectedWidget, setSelectedWidget] = useState<WidgetType | null>(null);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+
   // فیلتر کردن ویجت‌هایی که در صفحه نیستند (در panelOrder نیستند)
   const availableWidgetsList = availableWidgets.filter(
     (widget) => !existingWidgets.includes(widget.id)
   );
 
   const handleWidgetClick = (widget: WidgetType) => {
-    // نمایش تایید
-    const confirmed = window.confirm(`آیا می‌خواهید "${widget.name}" را به داشبورد اضافه کنید؟`);
-    if (confirmed) {
-      onAddWidget(widget.id);
+    setSelectedWidget(widget);
+    setShowConfirmModal(true);
+  };
+
+  const handleConfirm = () => {
+    if (selectedWidget) {
+      onAddWidget(selectedWidget.id);
+      setSelectedWidget(null);
+      setShowConfirmModal(false);
       onClose();
     }
   };
 
+  const handleCancel = () => {
+    setSelectedWidget(null);
+    setShowConfirmModal(false);
+  };
+
+  const handleDragStart = (e: React.DragEvent, widget: WidgetType) => {
+    e.dataTransfer.setData('widgetId', widget.id);
+    e.dataTransfer.setData('source', 'sidebar');
+    e.dataTransfer.effectAllowed = 'copy';
+  };
+
   return (
-    <Sidebar isOpen={isOpen} onClose={onClose} title="افزودن ویجت">
-      <div className="space-y-2">
-        {availableWidgetsList.length === 0 ? (
-          <div className="text-center py-8 text-gray-500">
-            <p>همه ویجت‌ها قبلاً اضافه شده‌اند</p>
-          </div>
-        ) : (
-          availableWidgetsList.map((widget) => (
-            <SidebarItem
-              key={widget.id}
-              icon={<span className="text-2xl">{widget.icon}</span>}
-              label={widget.name}
-              onClick={() => handleWidgetClick(widget)}
-            />
-          ))
-        )}
-      </div>
-    </Sidebar>
+    <>
+      <Sidebar isOpen={isOpen} onClose={onClose} title="افزودن ویجت">
+        <div className="space-y-2">
+          {availableWidgetsList.length === 0 ? (
+            <div className="text-center py-8 text-gray-500">
+              <p>همه ویجت‌ها قبلاً اضافه شده‌اند</p>
+            </div>
+          ) : (
+            availableWidgetsList.map((widget) => (
+              <div
+                key={widget.id}
+                data-widget-item
+                draggable
+                onDragStart={(e) => handleDragStart(e, widget)}
+                className="cursor-grab active:cursor-grabbing"
+              >
+                <SidebarItem
+                  icon={<span className="text-2xl">{widget.icon}</span>}
+                  label={widget.name}
+                  onClick={() => handleWidgetClick(widget)}
+                />
+              </div>
+            ))
+          )}
+        </div>
+      </Sidebar>
+
+      <ConfirmModal
+        isOpen={showConfirmModal}
+        onClose={handleCancel}
+        onConfirm={handleConfirm}
+        title="افزودن ویجت"
+        message={selectedWidget ? `آیا می‌خواهید "${selectedWidget.name}" را به داشبورد اضافه کنید؟` : ''}
+        confirmText="افزودن"
+        cancelText="لغو"
+      />
+    </>
   );
 };
 

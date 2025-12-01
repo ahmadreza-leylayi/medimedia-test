@@ -81,3 +81,50 @@ export const DeleteModal: React.FC<DeleteModalProps> = ({
   );
 };
 
+interface ConfirmModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onConfirm: () => void;
+  title?: string;
+  message?: string;
+  confirmText?: string;
+  cancelText?: string;
+}
+
+export const ConfirmModal: React.FC<ConfirmModalProps> = ({
+  isOpen,
+  onClose,
+  onConfirm,
+  title = 'تایید',
+  message = 'آیا مطمئن هستید؟',
+  confirmText = 'تایید',
+  cancelText = 'لغو',
+}) => {
+  return (
+    <Modal isOpen={isOpen} onClose={onClose}>
+      <div className="p-4 sm:p-6 md:p-8 text-center">
+        <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-3 sm:mb-4">
+          {title}
+        </h3>
+        <p className="text-sm sm:text-base text-gray-600 mb-6 sm:mb-8">
+          {message}
+        </p>
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+          <button
+            onClick={onConfirm}
+            className="px-6 sm:px-8 py-2 sm:py-3 bg-cyan-500 hover:bg-cyan-600 text-white rounded-lg font-medium transition-colors text-sm sm:text-base"
+          >
+            {confirmText}
+          </button>
+          <button
+            onClick={onClose}
+            className="px-6 sm:px-8 py-2 sm:py-3 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg font-medium transition-colors text-sm sm:text-base"
+          >
+            {cancelText}
+          </button>
+        </div>
+      </div>
+    </Modal>
+  );
+};
+

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 interface SearchInputProps {
   value: string;
@@ -9,12 +9,12 @@ interface SearchInputProps {
   onFocus: () => void;
 }
 
-export const SearchInput: React.FC<SearchInputProps> = ({
+export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(({
   value,
   placeholder,
   onChange,
   onFocus,
-}) => {
+}, ref) => {
   return (
     <div className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 md:px-4 py-2 sm:py-3 rounded-xl overflow-hidden bg-gray-200">
       {/* Search Icon */}
@@ -27,6 +27,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
       
       {/* Input Field */}
       <input
+        ref={ref}
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
@@ -41,5 +42,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
       </span>
     </div>
   );
-};
+});
+
+SearchInput.displayName = 'SearchInput';
 

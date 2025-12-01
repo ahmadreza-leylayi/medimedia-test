@@ -26,6 +26,8 @@ interface DashboardMainPageProps {
   onDragOver: (e: React.DragEvent, targetId: string) => void;
   onDragEnd: () => void;
   onDrop: (e: React.DragEvent, targetId: string) => void;
+  onDropWidget: (e: React.DragEvent, position: number) => void;
+  onMoveWidget: (widgetId: string, newPosition: number) => void;
   onHidePanel: (id: string) => void;
 }
 
@@ -38,6 +40,8 @@ export const DashboardMainPage: React.FC<DashboardMainPageProps> = ({
   onDragOver,
   onDragEnd,
   onDrop,
+  onDropWidget,
+  onMoveWidget,
   onHidePanel,
 }) => {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
@@ -47,10 +51,40 @@ export const DashboardMainPage: React.FC<DashboardMainPageProps> = ({
   const [selectedAppointmentId, setSelectedAppointmentId] = useState<string | null>(null);
   const [menuPosition, setMenuPosition] = useState<{ top: number; left: number; width: number } | null>(null);
   const appointmentCardRefs = useRef<Map<string, HTMLDivElement>>(new Map());
+  const [isDraggingWidget, setIsDraggingWidget] = useState(false);
+  const [hoveredDropZone, setHoveredDropZone] = useState<number | null>(null);
 
   // Use custom hooks
   const { appointments, addAppointment, updateAppointmentStatus } = useAppointments();
   const { currentTime, currentDate } = useDateTime(selectedDate);
+
+  // تشخیص drag از sidebar
+  useEffect(() => {
+    let dragSource: string | null = null;
+
+    const handleDragStart = (e: DragEvent) => {
+      const target = e.target as HTMLElement;
+      const widgetItem = target.closest('[data-widget-item]');
+      if (widgetItem) {
+        dragSource = 'sidebar';
+        setIsDraggingWidget(true);
+      }
+    };
+
+    const handleDragEnd = () => {
+      dragSource = null;
+      setIsDraggingWidget(false);
+      setHoveredDropZone(null);
+    };
+
+    document.addEventListener('dragstart', handleDragStart);
+    document.addEventListener('dragend', handleDragEnd);
+
+    return () => {
+      document.removeEventListener('dragstart', handleDragStart);
+      document.removeEventListener('dragend', handleDragEnd);
+    };
+  }, []);
 
   // Calculate and update menu position - update on scroll and resize to keep it attached to the item
   useEffect(() => {
@@ -273,6 +307,10 @@ export const DashboardMainPage: React.FC<DashboardMainPageProps> = ({
           };
 
           const isDragging = draggedPanelId === panelId;
+          const isHidden = hiddenPanels.includes(panelId);
+          
+          // اگر پنل مخفی است، نمایش نده
+          if (isHidden) return null;
           
           return (
             <div 
@@ -284,7 +322,7 @@ export const DashboardMainPage: React.FC<DashboardMainPageProps> = ({
               <DraggablePanel
                 id={panelId}
                 isCustomizing={isCustomizing}
-                isHidden={hiddenPanels.includes(panelId)}
+                isHidden={false}
                 isDragging={isDragging}
                 onDragStart={onDragStart}
                 onDragOver={(e) => onDragOver(e, panelId)}
@@ -297,6 +335,141 @@ export const DashboardMainPage: React.FC<DashboardMainPageProps> = ({
             </div>
           );
         })}
+        
+        {/* Drop Zones برای فضاهای خالی - فقط در حالت شخصی‌سازی */}
+        {isCustomizing && (
+          <>
+            {/* Drop zone بعد از هر پنل - برای drag widget از sidebar */}
+            {isDraggingWidget && panelOrder.map((_, index) => (
+              <div
+                key={`drop-zone-${index}`}
+                className={`col-span-1 md:col-span-6 lg:col-span-12 min-h-[120px] border-2 border-dashed rounded-xl transition-all duration-200 ${
+                  hoveredDropZone === index
+                    ? 'border-cyan-500 bg-cyan-50 scale-105'
+                    : 'border-cyan-300 bg-cyan-50/30'
+                }`}
+                onDragOver={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  const source = e.dataTransfer.getData('source');
+                  if (source === 'sidebar') {
+                    setHoveredDropZone(index);
+                  }
+                }}
+                onDragLeave={() => {
+                  setHoveredDropZone(null);
+                }}
+                onDrop={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  const source = e.dataTransfer.getData('source');
+                  if (source === 'sidebar') {
+                    setHoveredDropZone(null);
+                    onDropWidget(e, index + 1);
+                  }
+                }}
+              >
+                <div className="flex items-center justify-center h-full">
+                  <div className="text-center">
+                    <svg className="w-8 h-8 mx-auto mb-2 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                    </svg>
+                    <p className="text-sm font-medium text-cyan-600">رها کنید برای افزودن</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+            
+            {/* Drop zone در انتهای grid - برای drag widget از sidebar */}
+            {isDraggingWidget && (
+              <div
+                className={`col-span-1 md:col-span-6 lg:col-span-12 min-h-[120px] border-2 border-dashed rounded-xl transition-all duration-200 ${
+                  hoveredDropZone === panelOrder.length
+                    ? 'border-cyan-500 bg-cyan-50 scale-105'
+                    : 'border-cyan-300 bg-cyan-50/30'
+                }`}
+                onDragOver={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  const source = e.dataTransfer.getData('source');
+                  if (source === 'sidebar') {
+                    setHoveredDropZone(panelOrder.length);
+                  }
+                }}
+                onDragLeave={() => {
+                  setHoveredDropZone(null);
+                }}
+                onDrop={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  const source = e.dataTransfer.getData('source');
+                  if (source === 'sidebar') {
+                    setHoveredDropZone(null);
+                    onDropWidget(e, panelOrder.length);
+                  }
+                }}
+              >
+                <div className="flex items-center justify-center h-full">
+                  <div className="text-center">
+                    <svg className="w-8 h-8 mx-auto mb-2 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                    </svg>
+                    <p className="text-sm font-medium text-cyan-600">رها کنید برای افزودن</p>
+                  </div>
+                </div>
+              </div>
+            )}
+            
+            {/* Drop zones برای جابجایی ویجت‌های موجود به فضاهای خالی */}
+            {panelOrder.map((_, index) => {
+              // ایجاد drop zone بعد از هر ویجت برای جابجایی ویجت‌های دیگر
+              return (
+                <div
+                  key={`empty-drop-zone-${index}`}
+                  className={`col-span-1 md:col-span-6 lg:col-span-12 min-h-[60px] border-2 border-dashed rounded-xl transition-all duration-200 ${
+                    hoveredDropZone === -(index + 1000)
+                      ? 'border-blue-500 bg-blue-50 scale-105'
+                      : 'border-transparent bg-transparent'
+                  }`}
+                  onDragOver={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const source = e.dataTransfer.getData('source');
+                    // فقط برای drag از dashboard (نه sidebar)
+                    if (!source || source !== 'sidebar') {
+                      setHoveredDropZone(-(index + 1000));
+                    }
+                  }}
+                  onDragLeave={() => {
+                    setHoveredDropZone(null);
+                  }}
+                  onDrop={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const source = e.dataTransfer.getData('source');
+                    // فقط برای drag از dashboard
+                    if (!source || source !== 'sidebar') {
+                      setHoveredDropZone(null);
+                      const draggedId = draggedPanelId;
+                      if (draggedId) {
+                        // جابجایی ویجت به موقعیت جدید
+                        onMoveWidget(draggedId, index + 1);
+                      }
+                    }
+                  }}
+                >
+                  {hoveredDropZone === -(index + 1000) && (
+                    <div className="flex items-center justify-center h-full">
+                      <div className="text-center">
+                        <p className="text-sm font-medium text-blue-600">رها کنید برای جابجایی</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </>
+        )}
       </div>
 
       {/* Appointment Action Menu */}

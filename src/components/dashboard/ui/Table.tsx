@@ -28,11 +28,11 @@ export function Table<T extends { id: string }>({
 
   return (
     <div className={`overflow-x-auto ${className}`}>
-      <table className="w-full min-w-[800px]">
+      <table className="w-full min-w-[800px] border-collapse">
         <thead>
           <tr className="border-b border-gray-200">
             {onSelectRow && (
-              <th className="p-2 sm:p-3 md:p-4 text-right">
+              <th className="p-2 text-right w-12">
                 <input
                   type="checkbox"
                   checked={allSelected}
@@ -44,7 +44,7 @@ export function Table<T extends { id: string }>({
             {columns.map((column) => (
               <th
                 key={column.key}
-                className="p-2 sm:p-3 md:p-4 text-right text-xs sm:text-sm font-bold text-gray-700 whitespace-nowrap"
+                className="p-3 text-right text-sm font-bold text-gray-700 whitespace-nowrap"
                 style={column.width ? { width: column.width } : undefined}
               >
                 {column.label}
@@ -62,7 +62,7 @@ export function Table<T extends { id: string }>({
               onClick={() => onRowClick?.(item)}
             >
               {onSelectRow && (
-                <td className="p-2 sm:p-3 md:p-4" onClick={(e) => e.stopPropagation()}>
+                <td className="p-2 w-12" onClick={(e) => e.stopPropagation()}>
                   <input
                     type="checkbox"
                     checked={selectedRows.includes(item.id)}
@@ -74,7 +74,7 @@ export function Table<T extends { id: string }>({
               {columns.map((column) => (
                 <td
                   key={column.key}
-                  className="p-2 sm:p-3 md:p-4 text-xs sm:text-sm text-gray-700 whitespace-nowrap"
+                  className="p-3 text-sm text-gray-700 whitespace-nowrap"
                 >
                   {renderCell ? renderCell(item, column.key) : (item as any)[column.key]}
                 </td>
