@@ -47,22 +47,28 @@ export function UserAccountButton({ className }: UserAccountButtonProps) {
   };
 
   // Prevent hydration mismatch by not rendering until client-side
+  // But keep the same size to prevent layout shift
   if (!isMounted || !isAuthenticated || !user) {
     return (
       <Link
         href="/login"
-        className={`px-4 py-2 bg-[#E5E5E5] hover:bg-gray-200 text-gray-700 rounded-2xl transition-colors text-sm font-medium shadow-[inset_0_1px_3px_0_rgba(18,18,18,0.1)] cursor-pointer inline-block${className ? ` ${className}` : ''}`}
+        className={`flex items-center gap-2 px-3 py-2 bg-[#E5E5E5] hover:bg-gray-200 text-gray-700 rounded-2xl transition-colors text-sm font-medium shadow-[inset_0_1px_3px_0_rgba(18,18,18,0.1)] cursor-pointer min-w-[120px]${className ? ` ${className}` : ''}`}
       >
-        حساب کاربری
+        <div className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center shrink-0">
+          <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          </svg>
+        </div>
+        <span className="hidden md:block">حساب کاربری</span>
       </Link>
     );
   }
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className="relative shrink-0" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`flex items-center gap-2 px-3 py-2 bg-[#E5E5E5] hover:bg-gray-200 rounded-2xl transition-colors text-sm font-medium shadow-[inset_0_1px_3px_0_rgba(18,18,18,0.1)] cursor-pointer${className ? ` ${className}` : ''}`}
+        className={`flex items-center gap-2 px-3 py-2 bg-[#E5E5E5] hover:bg-gray-200 rounded-2xl transition-colors text-sm font-medium shadow-[inset_0_1px_3px_0_rgba(18,18,18,0.1)] cursor-pointer whitespace-nowrap${className ? ` ${className}` : ''}`}
       >
         {user.avatar ? (
           <img
