@@ -12,6 +12,8 @@ export interface Doctor {
   address?: string;
   phone?: string;
   avatar?: string;
+  gender?: 'male' | 'female';
+  hasActiveAppointment?: boolean;
 }
 
 /**
@@ -25,7 +27,9 @@ export const mockDoctors: Doctor[] = [
     medicalNumber: '12345', 
     city: 'تهران',
     address: 'تهران، خیابان ولیعصر، پلاک ۱۲۳۴، طبقه دوم، واحد ۵',
-    phone: '021-88776655'
+    phone: '021-88776655',
+    gender: 'male',
+    hasActiveAppointment: true
   },
   { 
     id: '2', 
@@ -34,7 +38,9 @@ export const mockDoctors: Doctor[] = [
     medicalNumber: '12346', 
     city: 'تهران',
     address: 'تهران، میدان ونک، خیابان ملاصدرا، پلاک ۵۶۷، طبقه اول',
-    phone: '021-88775544'
+    phone: '021-88775544',
+    gender: 'female',
+    hasActiveAppointment: true
   },
   { 
     id: '3', 
@@ -43,7 +49,9 @@ export const mockDoctors: Doctor[] = [
     medicalNumber: '12347', 
     city: 'اصفهان',
     address: 'اصفهان، خیابان چهارباغ عباسی، پلاک ۸۹۰، طبقه سوم',
-    phone: '031-34567890'
+    phone: '031-34567890',
+    gender: 'male',
+    hasActiveAppointment: false
   },
   { 
     id: '4', 
@@ -52,7 +60,9 @@ export const mockDoctors: Doctor[] = [
     medicalNumber: '12348', 
     city: 'تهران',
     address: 'تهران، خیابان انقلاب، پلاک ۱۲۳، طبقه اول',
-    phone: '021-77665544'
+    phone: '021-77665544',
+    gender: 'female',
+    hasActiveAppointment: true
   },
   { 
     id: '5', 
@@ -61,7 +71,9 @@ export const mockDoctors: Doctor[] = [
     medicalNumber: '12349', 
     city: 'مشهد',
     address: 'مشهد، خیابان امام رضا، پلاک ۴۵۶، طبقه دوم',
-    phone: '051-37891234'
+    phone: '051-37891234',
+    gender: 'male',
+    hasActiveAppointment: true
   },
   { 
     id: '6', 
@@ -70,7 +82,9 @@ export const mockDoctors: Doctor[] = [
     medicalNumber: '12350', 
     city: 'تهران',
     address: 'تهران، میدان جردن، خیابان فرشته، پلاک ۷۸، طبقه اول',
-    phone: '021-88776633'
+    phone: '021-88776633',
+    gender: 'female',
+    hasActiveAppointment: true
   },
   { 
     id: '7', 
@@ -79,7 +93,9 @@ export const mockDoctors: Doctor[] = [
     medicalNumber: '12351', 
     city: 'شیراز',
     address: 'شیراز، خیابان زند، پلاک ۲۳۴، طبقه دوم',
-    phone: '071-32345678'
+    phone: '071-32345678',
+    gender: 'male',
+    hasActiveAppointment: false
   },
   { 
     id: '8', 
@@ -88,7 +104,9 @@ export const mockDoctors: Doctor[] = [
     medicalNumber: '12352', 
     city: 'تهران',
     address: 'تهران، خیابان آزادی، پلاک ۶۷۸، طبقه سوم',
-    phone: '021-88775522'
+    phone: '021-88775522',
+    gender: 'female',
+    hasActiveAppointment: true
   },
   { 
     id: '9', 
@@ -97,7 +115,9 @@ export const mockDoctors: Doctor[] = [
     medicalNumber: '12353', 
     city: 'تبریز',
     address: 'تبریز، خیابان فردوسی، پلاک ۹۰۱، طبقه اول',
-    phone: '041-35556677'
+    phone: '041-35556677',
+    gender: 'male',
+    hasActiveAppointment: false
   },
   { 
     id: '10', 
@@ -106,7 +126,9 @@ export const mockDoctors: Doctor[] = [
     medicalNumber: '12354', 
     city: 'تهران',
     address: 'تهران، خیابان شریعتی، پلاک ۳۴۵، طبقه دوم',
-    phone: '021-88774411'
+    phone: '021-88774411',
+    gender: 'female',
+    hasActiveAppointment: true
   },
   { 
     id: '11', 
@@ -114,7 +136,9 @@ export const mockDoctors: Doctor[] = [
     specialty: 'پزشک عمومی', 
     city: 'قم',
     address: 'قم، خیابان ارم، پلاک ۱۲، طبقه اول',
-    phone: '025-37778899'
+    phone: '025-37778899',
+    gender: 'male',
+    hasActiveAppointment: false
   },
   { 
     id: '12', 
@@ -123,7 +147,9 @@ export const mockDoctors: Doctor[] = [
     medicalNumber: '12356', 
     city: 'تهران',
     address: 'تهران، خیابان کارگر شمالی، پلاک ۷۸۹، طبقه دوم',
-    phone: '021-88773300'
+    phone: '021-88773300',
+    gender: 'female',
+    hasActiveAppointment: true
   },
   { 
     id: '13', 
@@ -132,7 +158,9 @@ export const mockDoctors: Doctor[] = [
     medicalNumber: '12357', 
     city: 'مشهد',
     address: 'مشهد، خیابان احمدآباد، پلاک ۲۳، طبقه سوم',
-    phone: '051-37892345'
+    phone: '051-37892345',
+    gender: 'male',
+    hasActiveAppointment: false
   },
   { 
     id: '14', 
@@ -141,7 +169,9 @@ export const mockDoctors: Doctor[] = [
     medicalNumber: '12358', 
     city: 'تهران',
     address: 'تهران، خیابان پاسداران، پلاک ۴۵۶، طبقه اول',
-    phone: '021-88772299'
+    phone: '021-88772299',
+    gender: 'female',
+    hasActiveAppointment: true
   },
   { 
     id: '15', 
@@ -150,7 +180,9 @@ export const mockDoctors: Doctor[] = [
     medicalNumber: '12359', 
     city: 'اصفهان',
     address: 'اصفهان، خیابان طالقانی، پلاک ۳۴، طبقه دوم',
-    phone: '031-34561234'
+    phone: '031-34561234',
+    gender: 'male',
+    hasActiveAppointment: true
   },
 ];
 
@@ -170,4 +202,113 @@ export function searchDoctors(query: string): Doctor[] {
     doctor.phone?.includes(lowerQuery)
   ).slice(0, 8); // محدود کردن به 8 نتیجه اول
 }
+
+/**
+ * Interface for advanced search filters
+ */
+export interface AdvancedSearchFilters {
+  name?: string;
+  medicalNumber?: string;
+  gender?: 'male' | 'female';
+  specialty?: 'general' | 'specialist' | string; // 'general' for عمومی, 'specialist' for متخصص, or specific specialty name
+  hasActiveAppointment?: boolean;
+  city?: string;
+}
+
+/**
+ * جستجوی پیشرفته پزشک بر اساس فیلترها
+ */
+export function searchDoctorsAdvanced(filters: AdvancedSearchFilters): Doctor[] {
+  let results = [...mockDoctors];
+
+  // فیلتر بر اساس نام
+  if (filters.name?.trim()) {
+    const nameQuery = filters.name.toLowerCase().trim();
+    results = results.filter(doctor => 
+      doctor.name.toLowerCase().includes(nameQuery)
+    );
+  }
+
+  // فیلتر بر اساس شماره نظام پزشکی
+  if (filters.medicalNumber?.trim()) {
+    const medicalQuery = filters.medicalNumber.trim();
+    results = results.filter(doctor => 
+      doctor.medicalNumber?.includes(medicalQuery)
+    );
+  }
+
+  // فیلتر بر اساس جنسیت
+  if (filters.gender) {
+    results = results.filter(doctor => doctor.gender === filters.gender);
+  }
+
+  // فیلتر بر اساس تخصص
+  if (filters.specialty) {
+    if (filters.specialty === 'general') {
+      // پزشک عمومی
+      results = results.filter(doctor => 
+        doctor.specialty === 'پزشک عمومی'
+      );
+    } else if (filters.specialty === 'specialist') {
+      // همه متخصص‌ها (غیر از عمومی)
+      results = results.filter(doctor => 
+        doctor.specialty !== 'پزشک عمومی' && doctor.specialty.includes('متخصص')
+      );
+    } else {
+      // تخصص خاص
+      results = results.filter(doctor => 
+        doctor.specialty.toLowerCase().includes(filters.specialty!.toLowerCase())
+      );
+    }
+  }
+
+  // فیلتر بر اساس نوبت دهی فعال
+  if (filters.hasActiveAppointment !== undefined) {
+    results = results.filter(doctor => 
+      doctor.hasActiveAppointment === filters.hasActiveAppointment
+    );
+  }
+
+  // فیلتر بر اساس شهر
+  if (filters.city?.trim()) {
+    const cityQuery = filters.city.toLowerCase().trim();
+    results = results.filter(doctor => 
+      doctor.city?.toLowerCase().includes(cityQuery)
+    );
+  }
+
+  return results;
+}
+
+/**
+ * لیست تخصص‌های موجود
+ */
+export const specialties = [
+  'پزشک عمومی',
+  'متخصص قلب و عروق',
+  'متخصص پوست',
+  'متخصص مغز و اعصاب',
+  'متخصص اطفال',
+  'متخصص ارتوپد',
+  'متخصص زنان',
+  'متخصص داخلی',
+  'متخصص چشم',
+  'متخصص گوارش',
+  'متخصص روانپزشکی',
+  'متخصص رادیولوژی',
+  'متخصص گوش و حلق و بینی',
+  'متخصص خون',
+  'متخصص ارولوژی',
+];
+
+/**
+ * لیست شهرهای موجود (استخراج شده از mockDoctors)
+ */
+export const cities = Array.from(
+  new Set(
+    mockDoctors
+      .map(doctor => doctor.city)
+      .filter((city): city is string => !!city)
+  )
+).sort();
 
