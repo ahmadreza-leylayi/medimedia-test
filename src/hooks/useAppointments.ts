@@ -4,7 +4,7 @@
  */
 
 import { useState, useEffect, useRef } from 'react';
-import type { Appointment } from '@/components/dashboard/panels/AppointmentPanel';
+import type { Appointment } from '@/components/dashboard/appointments';
 import { generateMockAppointments } from '@/mocks/appointments';
 import { useLocalStorage } from './useLocalStorage';
 

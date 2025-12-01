@@ -29,6 +29,8 @@ export const DraggablePanel: React.FC<DraggablePanelProps> = ({
 }) => {
   if (isHidden) return null;
 
+  const cursorClass = isCustomizing ? (isDragging ? 'cursor-grabbing' : 'cursor-grab') : 'cursor-default';
+
   return (
     <div
       draggable={isCustomizing}
@@ -41,10 +43,7 @@ export const DraggablePanel: React.FC<DraggablePanelProps> = ({
         if (onDragEnd) onDragEnd();
       }}
       onDrop={(e) => onDrop(e, id)}
-      className="relative transition-all duration-300 ease-in-out"
-      style={{
-        cursor: isCustomizing ? (isDragging ? 'grabbing' : 'grab') : 'default',
-      }}
+      className={`relative transition-all duration-300 ease-in-out ${cursorClass}`}
     >
       {children}
       {isCustomizing && (
@@ -53,6 +52,7 @@ export const DraggablePanel: React.FC<DraggablePanelProps> = ({
             onMouseDown={(e) => e.stopPropagation()}
             className="p-1.5 hover:bg-gray-200 rounded-lg transition-colors cursor-move"
             title="جابجایی"
+            aria-label="جابجایی"
           >
             <svg className="w-4 h-4 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -62,6 +62,7 @@ export const DraggablePanel: React.FC<DraggablePanelProps> = ({
             onClick={() => onHide(id)}
             className="p-1.5 hover:bg-red-100 rounded-lg transition-colors"
             title="مخفی کردن"
+            aria-label="مخفی کردن"
           >
             <svg className="w-4 h-4 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -72,4 +73,3 @@ export const DraggablePanel: React.FC<DraggablePanelProps> = ({
     </div>
   );
 };
-

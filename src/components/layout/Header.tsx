@@ -50,7 +50,7 @@ export function Header({ className }: HeaderProps) {
           <div className="flex items-center justify-between h-16 gap-2 lg:gap-3 xl:gap-4 min-w-0">
             {isAuthenticated ? (
               <>
-                <div className="flex items-center gap-2 lg:gap-3 min-w-0 flex-1 overflow-hidden">
+                <div className="flex items-center gap-2 lg:gap-3 min-w-0 flex-1">
                   {/* Right (RTL): Logo */}
                   <div className="shrink-0">
                     <Link
@@ -70,7 +70,7 @@ export function Header({ className }: HeaderProps) {
                   </div>
 
                   {/* Search Bar */}
-                  <div className="flex-1 max-w-md mx-2 lg:mx-3 xl:mx-4 min-w-0 overflow-hidden">
+                  <div className="flex-1 max-w-md mx-2 lg:mx-3 xl:mx-4 min-w-0">
                     <SearchBar />
                   </div>
 

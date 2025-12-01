@@ -157,7 +157,7 @@ export function SearchBar({
 
       {/* Dropdown Results */}
       {showDropdown && (
-        <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-lg border border-gray-200 z-50 max-h-96 overflow-y-auto">
+        <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-lg border border-gray-200 z-[60] max-h-96 overflow-y-auto">
           {results.map((doctor, index) => (
             <button
               key={doctor.id}

@@ -253,8 +253,7 @@ export const DashboardContainer: React.FC = () => {
               <div className="flex flex-wrap items-center gap-2">
                 <button
                   onClick={handleConfirmCustomization}
-                  className="px-2 sm:px-4 py-2 rounded-lg transition-colors flex items-center gap-1 sm:gap-2 text-white text-xs sm:text-sm"
-                  style={{ backgroundColor: '#19ADBD' }}
+                  className="px-2 sm:px-4 py-2 rounded-lg transition-colors flex items-center gap-1 sm:gap-2 text-white text-xs sm:text-sm bg-cyan-500 hover:bg-cyan-600"
                 >
                   <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />

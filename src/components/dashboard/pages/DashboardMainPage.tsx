@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { AppointmentPanel, type Appointment } from '@/components/dashboard/panels/AppointmentPanel';
-import { SearchPanel } from '@/components/dashboard/panels/SearchPanel';
-import { MenuPanel } from '@/components/dashboard/panels/MenuPanel';
-import { StatisticsChartPanel } from '@/components/dashboard/panels/StatisticsChartPanel';
-import { AddAppointmentForm } from '@/components/dashboard/panels/AddAppointmentForm';
+import { AppointmentPanel, AppointmentActionMenu, type Appointment } from '@/components/dashboard/appointments';
+import { SearchPanel } from '@/components/dashboard/search';
+import { MenuPanel } from '@/components/dashboard/menu';
+import { StatisticsChartPanel } from '@/components/dashboard/statistics';
+import { AddAppointmentForm } from '@/components/dashboard/appointments';
 import { DraggablePanel } from '@/components/dashboard/ui/DraggablePanel';
 import { useAppointments } from '@/hooks/useAppointments';
 import { useDateTime } from '@/hooks/useDateTime';
@@ -221,9 +221,7 @@ export const DashboardMainPage: React.FC<DashboardMainPageProps> = ({
                   isDateInPast={isDateInPast(selectedDate)}
                   onAddAppointmentClick={() => setIsAddAppointmentOpen(true)}
                   onAppointmentClick={(id) => setSelectedAppointmentId(selectedAppointmentId === id ? null : id)}
-                  onAppointmentAction={handleAppointmentAction}
                   formatMonthYear={formatMonthYear}
-                  menuPosition={menuPosition}
                   cardRefs={appointmentCardRefs}
                 />
               );
@@ -250,11 +248,9 @@ export const DashboardMainPage: React.FC<DashboardMainPageProps> = ({
           return (
             <div 
               key={panelId} 
-              className={`${getColumnSpan()} transition-all duration-300 ease-in-out`}
-              style={{
-                opacity: isDragging ? 0.5 : 1,
-                transform: isDragging ? 'scale(0.95)' : 'scale(1)',
-              }}
+              className={`${getColumnSpan()} transition-all duration-300 ease-in-out ${
+                isDragging ? 'opacity-50 scale-95' : 'opacity-100 scale-100'
+              }`}
             >
               <DraggablePanel
                 id={panelId}
@@ -274,69 +270,13 @@ export const DashboardMainPage: React.FC<DashboardMainPageProps> = ({
         })}
       </div>
 
-      {/* Appointment Action Menu - Rendered outside container */}
+      {/* Appointment Action Menu */}
       {selectedAppointmentId && menuPosition && (
-        <div 
-          data-appointment-menu
-          className="fixed bg-white rounded-xl shadow-lg border border-gray-200 z-50 overflow-hidden"
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-          onMouseDown={(e) => {
-            e.stopPropagation();
-          }}
-          style={{ 
-            pointerEvents: 'auto',
-            top: `${menuPosition.top}px`,
-            left: `${menuPosition.left}px`,
-            width: `${menuPosition.width}px`,
-          }}
-        >
-          <button
-            type="button"
-            onClick={(e) => {
-              console.log('🔘 Completed button clicked for:', selectedAppointmentId);
-              e.stopPropagation();
-              handleAppointmentAction(selectedAppointmentId, 'completed');
-            }}
-            className="w-full px-4 py-3 text-right hover:bg-green-50 active:bg-green-100 transition-colors flex items-center gap-3 cursor-pointer"
-          >
-            <div className="w-2 h-2 rounded-full bg-green-500"></div>
-            <span className="text-sm font-bold text-gray-800">
-              انجام شده
-            </span>
-          </button>
-          <button
-            type="button"
-            onClick={(e) => {
-              console.log('🔘 Cancelled button clicked for:', selectedAppointmentId);
-              e.stopPropagation();
-              handleAppointmentAction(selectedAppointmentId, 'cancelled');
-            }}
-            className="w-full px-4 py-3 text-right hover:bg-orange-50 active:bg-orange-100 transition-colors flex items-center gap-3 border-t border-gray-200 cursor-pointer"
-          >
-            <div className="w-2 h-2 rounded-full bg-orange-500"></div>
-            <span className="text-sm font-bold text-gray-800">
-              لغو شده
-            </span>
-          </button>
-          <button
-            type="button"
-            onClick={(e) => {
-              console.log('🔘 Delete button clicked for:', selectedAppointmentId);
-              e.stopPropagation();
-              handleAppointmentAction(selectedAppointmentId, 'delete');
-            }}
-            className="w-full px-4 py-3 text-right hover:bg-red-50 active:bg-red-100 transition-colors flex items-center gap-3 border-t border-gray-200 cursor-pointer"
-          >
-            <svg className="w-4 h-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-            </svg>
-            <span className="text-sm font-bold text-red-600">
-              حذف از لیست
-            </span>
-          </button>
-        </div>
+        <AppointmentActionMenu
+          appointmentId={selectedAppointmentId}
+          position={menuPosition}
+          onAction={handleAppointmentAction}
+        />
       )}
 
       {/* Add Appointment Form */}

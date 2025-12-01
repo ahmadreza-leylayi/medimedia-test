@@ -3,7 +3,7 @@
  * داده‌های تستی برای نوبت‌ها
  */
 
-import type { Appointment } from '@/components/dashboard/panels/AppointmentPanel';
+import type { Appointment } from '@/components/dashboard/appointments';
 import { PATIENT_NAMES, APPOINTMENT_TIMES, APPOINTMENT_STATUSES } from '@/constants/dashboard';
 
 /**

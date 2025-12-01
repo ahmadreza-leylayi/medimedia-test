@@ -1,0 +1,2 @@
+export { StatisticsChartPanel } from './StatisticsChartPanel';
+
