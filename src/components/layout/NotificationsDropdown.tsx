@@ -136,7 +136,7 @@ export function NotificationsDropdown() {
           />
           
           {/* Dropdown - Mobile: Fixed bottom sheet, Desktop: Absolute dropdown */}
-          <div className="fixed bottom-0 left-0 right-0 md:absolute md:bottom-auto md:left-0 md:right-auto md:top-full md:mt-2 md:w-80 md:rounded-xl md:shadow-2xl md:border md:border-gray-200 bg-white rounded-t-2xl md:rounded-t-xl shadow-2xl border-t border-r border-l border-gray-200 z-50 max-h-[85vh] md:max-h-96 overflow-hidden flex flex-col">
+          <div className="fixed bottom-0 left-0 right-0 md:absolute md:bottom-auto md:right-0 md:left-auto md:top-full md:mt-2 md:w-80 md:rounded-xl md:shadow-2xl md:border md:border-gray-200 bg-white rounded-t-2xl md:rounded-t-xl shadow-2xl border-t border-r border-l border-gray-200 z-50 max-h-[85vh] md:max-h-96 overflow-hidden flex flex-col">
             {/* Mobile: Drag Handle */}
             <div className="md:hidden pt-3 pb-2 flex justify-center">
               <div className="w-12 h-1 bg-gray-300 rounded-full"></div>

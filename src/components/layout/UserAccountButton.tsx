@@ -102,7 +102,7 @@ export function UserAccountButton({ className }: UserAccountButtonProps) {
           />
           
           {/* Dropdown */}
-          <div className="absolute left-0 top-full mt-2 w-56 bg-white rounded-xl shadow-2xl border border-gray-200 z-50 overflow-hidden">
+          <div className="absolute right-0 top-full mt-2 w-56 bg-white rounded-xl shadow-2xl border border-gray-200 z-50 overflow-hidden">
             {/* User Info */}
             <div className="px-4 py-3 border-b border-gray-200 bg-gray-50">
               <p className="text-sm font-semibold text-gray-900">

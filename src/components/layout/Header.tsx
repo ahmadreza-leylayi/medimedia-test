@@ -81,7 +81,7 @@ export function Header({ className }: HeaderProps) {
                 </div>
 
                 {/* Left (RTL): Notifications and User */}
-                <div className="shrink-0 flex items-center gap-3 mr-[2%]">
+                <div className="shrink-0 flex items-center gap-4">
                   <NotificationsDropdown />
                   <UserAccountButton />
                 </div>
