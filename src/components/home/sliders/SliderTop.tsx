@@ -93,7 +93,7 @@ function SliderTop() {
 
               <Image src="/slider-top/subtitle.png" alt="location" width={17} height={9} className="w-4 h-4" />
             </div>
-            <h3 className="text-lg font-bold font-serif text-gray-900 whitespace-nowrap">
+            <h3 className="text-lg font-bold  text-gray-900 whitespace-nowrap">
               درخواست خدمت حضوری در مرکز درمانی
             </h3>
           </div>

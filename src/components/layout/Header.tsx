@@ -247,7 +247,7 @@ export function Header({ className }: HeaderProps) {
             <div className="flex flex-col h-full">
               {/* Drawer Header */}
               <div className="flex items-center justify-between p-4 border-b border-gray-200">
-                <h2 className="text-lg font-bold font-serif text-gray-900">منو</h2>
+                <h2 className="text-lg font-bold  text-gray-900">منو</h2>
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="p-2 rounded-lg hover:bg-gray-100 transition-colors"

@@ -92,7 +92,7 @@ function SliderTop() {
             <div className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center shrink-0">
               <Image src="/slider-top/subtitle.png" alt="location" width={17} height={9} className="w-4 h-4" />
             </div>
-            <h3 className="text-base sm:text-lg font-bold font-serif text-gray-900 leading-tight">
+            <h3 className="text-base sm:text-lg font-bold  text-gray-900 leading-tight">
               درخواست خدمت حضوری در مرکز درمانی
             </h3>
           </div>
@@ -142,7 +142,7 @@ function SliderTop() {
                 height={74}
                 className="w-16 h-16 sm:w-[74px] sm:h-[74px] object-contain"
               />
-              <p className="text-xs sm:text-sm font-bold font-serif text-gray-900 text-center leading-tight">
+              <p className="text-xs sm:text-sm font-bold  text-gray-900 text-center leading-tight">
                 {service.text}
               </p>
             </div>

@@ -58,7 +58,7 @@ export default function HeroSection() {
             />
           </div>
           {/* Main Title */}
-          <h1 className="text-4xl md:text-4xl font-bold font-serif text-gray-900 mb-4">
+          <h1 className="text-4xl md:text-4xl font-bold  text-gray-900 mb-4">
             <span className="text-[#197BBD]">مدی </span>
             <span className="text-[#19ADBD] ">مدیا </span>
             نوبت دهی
@@ -66,7 +66,7 @@ export default function HeroSection() {
 
           {/* Sub-headlines */}
           <div className="mb-4  font-bold  text-3xl gap-2 flex flex-col">
-            <p className="text-2xl md:text-3xl font-bold font-serif text-gray-900 leading-[1.2]">
+            <p className="text-2xl md:text-3xl font-bold  text-gray-900 leading-[1.2]">
               پزشکی، مشاوره و ویزیت
               آنلاین پزشکی، نسخه و
               پرونده الکترونیکی
@@ -106,7 +106,7 @@ export default function HeroSection() {
         <div className="hidden lg:flex flex-row-reverse items-start gap-8 lg:gap-8 border-b-3 border-gray-50">
           {/* Left Side (RTL) - Doctor Image */}
           <div className="shrink-0 lg:w-2/5 flex justify-center lg:justify-end ">
-            <div className="relative w-[360px] h-[580px]">
+            <div className="relative w-[360px] h-[590px] lg:bottom-20">
               {/* Grid Background */}
               <Image
                 src="/hero-section/grid.png"
@@ -140,7 +140,7 @@ export default function HeroSection() {
                   className="w-6 h-6"
                 />
               </div>
-              <h2 className="text-lg md:text-[18px] font-bold font-serif text-gray-900">
+              <h2 className="text-lg md:text-[18px] font-bold  text-gray-900">
                 درخواست خدمت آنلاین
               </h2>
             </div>
@@ -156,7 +156,7 @@ export default function HeroSection() {
                   />
                   {/* vector - only for last card (خدمت درمانی در محل) - hidden between 1286px and 1527px */}
                   {index === services.length - 1 && (
-                    <div className="absolute -bottom-16 right-30 hidden xl:block hide-vector-range">
+                    <div className="absolute -bottom-16 right-30 hidden xl:block hide-vector-range ">
                       <Image
                         src="/hero-section/vector.png"
                         alt=""

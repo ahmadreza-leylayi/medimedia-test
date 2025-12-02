@@ -25,10 +25,10 @@ function HeroCard({ image, topText, bottomText, highlighted = false }: HeroCardP
         />
       </div>
       <div className="flex flex-col gap-0.5 lg:gap-1 min-w-0">
-        <span className="text-sm lg:text-base font-bold font-serif text-gray-900 whitespace-nowrap">
+        <span className="text-sm lg:text-base font-bold text-gray-900 whitespace-nowrap">
           {topText}
         </span>
-        <span className="text-[10px] lg:text-xs font-normal font-serif text-[#7B7B7B] whitespace-nowrap">
+        <span className="text-[10px] lg:text-xs font-normal text-[#7B7B7B] whitespace-nowrap">
           {bottomText}
         </span>
       </div>
